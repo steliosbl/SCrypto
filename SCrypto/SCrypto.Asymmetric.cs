@@ -6,7 +6,7 @@
     using System.Text;
 
     /// <summary>
-    /// Contains method that use RSA to perform asymmetric encryption/decryption.
+    /// Contains methods that use RSA to perform asymmetric encryption/decryption.
     /// </summary>
     public static class RSA
     {

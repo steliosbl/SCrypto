@@ -5,18 +5,44 @@
     using System.Security.Cryptography;
     using System.Text;
 
+    /// <summary>
+    /// Contains methods that perform AES256 and HMAC operations on data.
+    /// </summary>
     public static class AESThenHMAC
     {
         // Preconfigured Encryption Parameters
+
+        /// <summary>
+        /// Default block bit size.
+        /// </summary>
         public static readonly int BlockBitSize = 128;
+
+        /// <summary>
+        /// Default key bit size.
+        /// </summary>
         public static readonly int KeyBitSize = 256;
 
         // Preconfigured Password Key Derivation Parameters
+
+        /// <summary>
+        /// Default salt bit size.
+        /// </summary>
         public static readonly int SaltBitSize = 64;
+
+        /// <summary>
+        /// Default number of PBKDF2 iterations.
+        /// </summary>
         public static readonly int Iterations = 10000;
+
+        /// <summary>
+        /// Default minimum password length.
+        /// </summary>
         public static readonly int MinPasswordLength = 12;
 
-        private static readonly RandomNumberGenerator Random = RandomNumberGenerator.Create();
+        /// <summary>
+        /// Secure random number generator.
+        /// </summary>
+        private static readonly RandomNumberGenerator Random = new RNGCryptoServiceProvider();
 
         /// <summary>
         /// Helper that generates a random key on each call.
@@ -32,17 +58,15 @@
         /// <summary>
         /// Simple Encryption (AES) then Authentication (HMAC) for a UTF8 Message.
         /// </summary>
+        /// <remarks>
+        /// Adds overhead of (Optional-Payload + BlockSize(16) + Message Padded To Block Size +  HMac-Tag(32)) * 1.33 Base64.
+        /// </remarks>
         /// <param name="secretMessage">The secret message.</param>
         /// <param name="cryptKey">The crypt key.</param>
         /// <param name="authKey">The authentication key.</param>
         /// <param name="nonSecretPayload">Non-Secret Payload.</param>
-        /// <returns>
-        /// Encrypted Message.
-        /// </returns>
         /// <exception cref="System.ArgumentException">Secret Message Required!;secretMessage.</exception>
-        /// <remarks>
-        /// Adds overhead of (Optional-Payload + BlockSize(16) + Message Padded To Block Size +  HMac-Tag(32)) * 1.33 Base64.
-        /// </remarks>
+        /// <returns>Encrypted Message.</returns>
         public static string SimpleEncrypt(string secretMessage, byte[] cryptKey, byte[] authKey, byte[] nonSecretPayload = null)
         {
             if (string.IsNullOrEmpty(secretMessage))
@@ -62,10 +86,8 @@
         /// <param name="cryptKey">The crypt key.</param>
         /// <param name="authKey">The authentication key.</param>
         /// <param name="nonSecretPayloadLength">Length of the non secret payload.</param>
-        /// <returns>
-        /// Decrypted Message.
-        /// </returns>
         /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage.</exception>
+        /// <returns>Decrypted Message.</returns>
         public static string SimpleDecrypt(string encryptedMessage, byte[] cryptKey, byte[] authKey, int nonSecretPayloadLength = 0)
         {
             if (string.IsNullOrWhiteSpace(encryptedMessage))
@@ -82,17 +104,15 @@
         /// Simple Encryption (AES) then Authentication (HMAC) of a UTF8 message
         /// using Keys derived from a Password (PBKDF2).
         /// </summary>
-        /// <param name="secretMessage">The secret message.</param>
-        /// <param name="password">The password.</param>
-        /// <param name="nonSecretPayload">The non secret payload.</param>
-        /// <returns>
-        /// Encrypted Message.
-        /// </returns>
-        /// <exception cref="System.ArgumentException">Empty password.</exception>
         /// <remarks>
         /// Significantly less secure than using random binary keys.
         /// Adds additional non secret payload for key generation parameters.
         /// </remarks>
+        /// <param name="secretMessage">The secret message.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="nonSecretPayload">The non secret payload.</param>
+        /// <exception cref="System.ArgumentException">Empty password.</exception>
+        /// <returns>Encrypted Message.</returns>
         public static string SimpleEncryptWithPassword(string secretMessage, string password, byte[] nonSecretPayload = null)
         {
             if (string.IsNullOrEmpty(secretMessage))
@@ -109,16 +129,12 @@
         /// Simple Authentication (HMAC) and then Decryption (AES) of a UTF8 Message
         /// using keys derived from a password (PBKDF2). 
         /// </summary>
+        /// <remarks>Significantly less secure than using random binary keys.</remarks>
         /// <param name="encryptedMessage">The encrypted message.</param>
         /// <param name="password">The password.</param>
         /// <param name="nonSecretPayloadLength">Length of the non secret payload.</param>
-        /// <returns>
-        /// Decrypted Message.
-        /// </returns>
         /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage.</exception>
-        /// <remarks>
-        /// Significantly less secure than using random binary keys.
-        /// </remarks>
+        /// <returns>Decrypted Message.</returns>
         public static string SimpleDecryptWithPassword(string encryptedMessage, string password, int nonSecretPayloadLength = 0)
         {
             if (string.IsNullOrWhiteSpace(encryptedMessage))
@@ -131,6 +147,14 @@
             return plainText == null ? null : Encoding.UTF8.GetString(plainText);
         }
 
+        /// <summary>
+        /// Performs the actual encryption operation on the data supplied.
+        /// </summary>
+        /// <param name="secretMessage">The data to be encrypted.</param>
+        /// <param name="cryptKey">The encryption key.</param>
+        /// <param name="authKey">The authentication key.</param>
+        /// <param name="nonSecretPayload">The unencrypted payload to be bundled with the encrypted data.</param>
+        /// <returns>The encrypted data.</returns>
         public static byte[] SimpleEncrypt(byte[] secretMessage, byte[] cryptKey, byte[] authKey, byte[] nonSecretPayload = null)
         {
             // User Error Checks
@@ -208,6 +232,14 @@
             }
         }
 
+        /// <summary>
+        /// Performs the actual decryption operation on the given data.
+        /// </summary>
+        /// <param name="encryptedMessage">The data to be decrypted.</param>
+        /// <param name="cryptKey">The decryption key.</param>
+        /// <param name="authKey">The authentication key.</param>
+        /// <param name="nonSecretPayloadLength">The length of the non-secret payload.</param>
+        /// <returns>The decrypted data.</returns>
         public static byte[] SimpleDecrypt(byte[] encryptedMessage, byte[] cryptKey, byte[] authKey, int nonSecretPayloadLength = 0)
         {
             // Basic Usage Error Checks
@@ -288,6 +320,19 @@
             }
         }
 
+        /// <summary>
+        /// Simple Encryption (AES) then Authentication (HMAC) of a UTF8 message
+        /// using Keys derived from a Password (PBKDF2).
+        /// </summary>
+        /// <remarks>
+        /// Significantly less secure than using random binary keys.
+        /// Adds additional non secret payload for key generation parameters.
+        /// </remarks>
+        /// <param name="secretMessage">The secret message.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="nonSecretPayload">The non secret payload.</param>
+        /// <exception cref="System.ArgumentException">Empty password.</exception>
+        /// <returns>Encrypted Message.</returns>
         public static byte[] SimpleEncryptWithPassword(byte[] secretMessage, string password, byte[] nonSecretPayload = null)
         {
             nonSecretPayload = nonSecretPayload ?? new byte[] { };
@@ -340,6 +385,16 @@
             return SimpleEncrypt(secretMessage, cryptKey, authKey, payload);
         }
 
+        /// <summary>
+        /// Simple Authentication (HMAC) and then Decryption (AES) of a UTF8 Message
+        /// using keys derived from a password (PBKDF2). 
+        /// </summary>
+        /// <remarks>Significantly less secure than using random binary keys.</remarks>
+        /// <param name="encryptedMessage">The encrypted message.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="nonSecretPayloadLength">Length of the non secret payload.</param>
+        /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage.</exception>
+        /// <returns>Decrypted Message.</returns>
         public static byte[] SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
         {
             // User Error Checks

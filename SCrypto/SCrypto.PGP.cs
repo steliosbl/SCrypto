@@ -1,11 +1,9 @@
 ﻿namespace SCrypto.PGP
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.IO;
     using System.Security.Cryptography;
     using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Implementation of the PGP algorithm that utilizes RSA and AES-256.

@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SCrypto.Symmetric.cs">
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="SCrypto.PGP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,7 +50,10 @@
     <Compile Include="SCrypto.Asymmetric.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SCrypto.Hash.cs" />
+    <Compile Include="SCrypto.Hash.SHA_256.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SCrypto.Hash.MD_5.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
