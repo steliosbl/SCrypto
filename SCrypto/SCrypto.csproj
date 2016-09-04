@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SCrypto.Symmetric.cs" />
+    <Compile Include="SCrypto.Symmetric.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="SCrypto.PGP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

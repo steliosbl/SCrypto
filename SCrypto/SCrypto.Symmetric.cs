@@ -1,11 +1,4 @@
-﻿/*
- * This work (Modern Encryption of a string C#, by James Tuley), 
- * identified by James Tuley, is free of known copyright restrictions.
- * https://gist.github.com/4336842
- * http://creativecommons.org/publicdomain/mark/1.0/ 
- */
-
-namespace SCrypto.Symmetric
+﻿namespace SCrypto.Symmetric
 {
     using System;
     using System.IO;
@@ -28,7 +21,7 @@ namespace SCrypto.Symmetric
         /// <summary>
         /// Helper that generates a random key on each call.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The generated key.</returns>
         public static byte[] NewKey()
         {
             var key = new byte[KeyBitSize / 8];
@@ -41,14 +34,14 @@ namespace SCrypto.Symmetric
         /// </summary>
         /// <param name="secretMessage">The secret message.</param>
         /// <param name="cryptKey">The crypt key.</param>
-        /// <param name="authKey">The auth key.</param>
-        /// <param name="nonSecretPayload">(Optional) Non-Secret Payload.</param>
+        /// <param name="authKey">The authentication key.</param>
+        /// <param name="nonSecretPayload">Non-Secret Payload.</param>
         /// <returns>
-        /// Encrypted Message
+        /// Encrypted Message.
         /// </returns>
-        /// <exception cref="System.ArgumentException">Secret Message Required!;secretMessage</exception>
+        /// <exception cref="System.ArgumentException">Secret Message Required!;secretMessage.</exception>
         /// <remarks>
-        /// Adds overhead of (Optional-Payload + BlockSize(16) + Message-Padded-To-Blocksize +  HMac-Tag(32)) * 1.33 Base64
+        /// Adds overhead of (Optional-Payload + BlockSize(16) + Message Padded To Block Size +  HMac-Tag(32)) * 1.33 Base64.
         /// </remarks>
         public static string SimpleEncrypt(string secretMessage, byte[] cryptKey, byte[] authKey, byte[] nonSecretPayload = null)
         {
@@ -67,12 +60,12 @@ namespace SCrypto.Symmetric
         /// </summary>
         /// <param name="encryptedMessage">The encrypted message.</param>
         /// <param name="cryptKey">The crypt key.</param>
-        /// <param name="authKey">The auth key.</param>
+        /// <param name="authKey">The authentication key.</param>
         /// <param name="nonSecretPayloadLength">Length of the non secret payload.</param>
         /// <returns>
-        /// Decrypted Message
+        /// Decrypted Message.
         /// </returns>
-        /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage</exception>
+        /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage.</exception>
         public static string SimpleDecrypt(string encryptedMessage, byte[] cryptKey, byte[] authKey, int nonSecretPayloadLength = 0)
         {
             if (string.IsNullOrWhiteSpace(encryptedMessage))
@@ -93,9 +86,9 @@ namespace SCrypto.Symmetric
         /// <param name="password">The password.</param>
         /// <param name="nonSecretPayload">The non secret payload.</param>
         /// <returns>
-        /// Encrypted Message
+        /// Encrypted Message.
         /// </returns>
-        /// <exception cref="System.ArgumentException">password</exception>
+        /// <exception cref="System.ArgumentException">Empty password.</exception>
         /// <remarks>
         /// Significantly less secure than using random binary keys.
         /// Adds additional non secret payload for key generation parameters.
@@ -113,16 +106,16 @@ namespace SCrypto.Symmetric
         }
 
         /// <summary>
-        /// Simple Authentication (HMAC) and then Descryption (AES) of a UTF8 Message
+        /// Simple Authentication (HMAC) and then Decryption (AES) of a UTF8 Message
         /// using keys derived from a password (PBKDF2). 
         /// </summary>
         /// <param name="encryptedMessage">The encrypted message.</param>
         /// <param name="password">The password.</param>
         /// <param name="nonSecretPayloadLength">Length of the non secret payload.</param>
         /// <returns>
-        /// Decrypted Message
+        /// Decrypted Message.
         /// </returns>
-        /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage</exception>
+        /// <exception cref="System.ArgumentException">Encrypted Message Required!;encryptedMessage.</exception>
         /// <remarks>
         /// Significantly less secure than using random binary keys.
         /// </remarks>

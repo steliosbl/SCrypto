@@ -5,8 +5,15 @@
     using System.Security.Cryptography;
     using System.Text;
 
+    /// <summary>
+    /// Contains method that use RSA to perform asymmetric encryption/decryption.
+    /// </summary>
     public static class RSA
     {
+        /// <summary>
+        /// Create an RSA public-private key pair.
+        /// </summary>
+        /// <returns>The generated public and private keys.</returns>
         public static Tuple<string, string> CreateKeyPair()
         {
             CspParameters cspParams = new CspParameters { ProviderType = 1 };
@@ -19,6 +26,12 @@
             return new Tuple<string, string>(publicKey, privateKey);
         }
 
+        /// <summary>
+        /// Encrypt the provided string using RSA.
+        /// </summary>
+        /// <param name="publicKey">The public key to encrypt the data with.</param>
+        /// <param name="data">The data to be encrypted.</param>
+        /// <returns>Encrypted data.</returns>
         public static byte[] Encrypt(string publicKey, string data)
         {
             CspParameters cspParams = new CspParameters { ProviderType = 1 };
@@ -32,6 +45,12 @@
             return encryptedBytes;
         }
 
+        /// <summary>
+        /// Decrypt the provided data using RSA.
+        /// </summary>
+        /// <param name="privateKey">The key to be used for decryption.</param>
+        /// <param name="encryptedBytes">The data to be decrypted.</param>
+        /// <returns>Decrypted data.</returns>
         public static string Decrypt(string privateKey, byte[] encryptedBytes)
         {
             CspParameters cspParams = new CspParameters { ProviderType = 1 };
