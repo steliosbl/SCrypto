@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCrypto", "SCrypto\SCrypto.csproj", "{782D4727-99DC-4BA3-B80D-2522C353DF23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCrypto", "SCrypto\SCrypto.csproj", "{D5E17334-133B-4400-92A9-5CF85F71450D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{782D4727-99DC-4BA3-B80D-2522C353DF23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{782D4727-99DC-4BA3-B80D-2522C353DF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{782D4727-99DC-4BA3-B80D-2522C353DF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{782D4727-99DC-4BA3-B80D-2522C353DF23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E17334-133B-4400-92A9-5CF85F71450D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E17334-133B-4400-92A9-5CF85F71450D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E17334-133B-4400-92A9-5CF85F71450D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E17334-133B-4400-92A9-5CF85F71450D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
