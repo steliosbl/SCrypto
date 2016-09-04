@@ -8,7 +8,7 @@
     /// <summary>
     /// Implementation of the PGP algorithm that utilizes RSA and AES-256.
     /// </summary>
-    public class PGP
+    public class SPGP
     {
         /// <summary>
         /// The length of all generated session keys.
@@ -16,9 +16,9 @@
         public const int SessionKeyLength = 64;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PGP"/> class.
+        /// Initializes a new instance of the <see cref="SPGP"/> class.
         /// </summary>
-        public PGP()
+        public SPGP()
         {
             this.CreateKeyPair();
             this.SessionKey = null;
@@ -120,7 +120,7 @@
         {
             this.CreateSessionKey();
             this.EncryptedSessionKey = SCrypto.Asymmetric.RSA.Encrypt(this.RecipientPublicKey, this.SessionKey);
-            this.CipherText = SCrypto.Symmetric.AESThenHMAC.SimpleEncryptWithPassword(this.ClearText, this.SessionKey, this.EncryptedSessionKey);
+            this.CipherText = SCrypto.Symmetric.AES256WithHMAC.SimpleEncryptWithPassword(this.ClearText, this.SessionKey, this.EncryptedSessionKey);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@
         private void DecryptCipherText()
         {
             this.SessionKey = SCrypto.Asymmetric.RSA.Decrypt(this.PrivateKey, this.EncryptedSessionKey);
-            this.ClearText = SCrypto.Symmetric.AESThenHMAC.SimpleDecryptWithPassword(this.CipherText, this.SessionKey);
+            this.ClearText = SCrypto.Symmetric.AES256WithHMAC.SimpleDecryptWithPassword(this.CipherText, this.SessionKey);
         }
 
         /// <summary>

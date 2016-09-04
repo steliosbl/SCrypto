@@ -7,8 +7,8 @@
     <ProjectGuid>{D5E17334-133B-4400-92A9-5CF85F71450D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SPGP</RootNamespace>
-    <AssemblyName>SPGP</AssemblyName>
+    <RootNamespace>SCrypto</RootNamespace>
+    <AssemblyName>SCrypto</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SCrypto.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -40,14 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SCrypto.Symmetric.cs">
+    <Compile Include="SCrypto.Symmetric.AES256WithHMAC.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="SCrypto.PGP.cs" />
+    <Compile Include="SCrypto.PGP.SPGP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SCrypto.Asymmetric.cs" />
+    <Compile Include="SCrypto.Asymmetric.RSA.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SCrypto.Hash.SHA_256.cs" />

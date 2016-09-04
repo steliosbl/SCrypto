@@ -8,7 +8,7 @@
     /// <summary>
     /// Contains methods that perform AES256 and HMAC operations on data.
     /// </summary>
-    public static class AESThenHMAC
+    public static class AES256WithHMAC
     {
         // Preconfigured Encryption Parameters
 

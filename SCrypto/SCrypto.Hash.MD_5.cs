@@ -1,4 +1,4 @@
-﻿namespace SPGP
+﻿namespace SCrypto.Hash
 {
     using System;
     using System.Linq;
