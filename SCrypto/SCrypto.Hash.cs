@@ -34,4 +34,27 @@
             }
         }
     }
+
+    /// <summary>
+    /// Contains methods that utilize the MD5 hashing algorithm.
+    /// </summary>
+    public static class MD_5
+    {
+        public static string GetDigest(string data)
+        {
+            // User Error Checks
+            if (data == null || data == string.Empty)
+            {
+                throw new ArgumentException("Data required!", "data");
+            }
+
+            using (MD5 hash = MD5CryptoServiceProvider.Create())
+            {
+                return string.Join(
+                    string.Empty,
+                    hash.ComputeHash(Encoding.UTF8.GetBytes(data))
+                    .Select(item => item.ToString("x2")));
+            }
+        }
+    }
 }
