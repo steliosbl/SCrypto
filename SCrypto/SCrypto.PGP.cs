@@ -73,6 +73,17 @@
         /// <returns>The encrypted text.</returns>
         public string Encrypt(string text, string recipientPublicKey)
         {
+            // User error checks
+            if (text == null || text == string.Empty)
+            {
+                throw new ArgumentException("Text required!", "text");
+            }
+
+            if (recipientPublicKey == null || recipientPublicKey == string.Empty)
+            {
+                throw new ArgumentException("Recipient's public key required!", "recipientPublicKey");
+            }
+
             this.RecipientPublicKey = recipientPublicKey;
             this.ClearText = text;
             this.EncryptClearText();
@@ -87,6 +98,17 @@
         /// <returns>The decrypted text.</returns>
         public string Decrypt(string text, byte[] encryptedSessionkey)
         {
+            // User error checks
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentException("Encrypted text required!", "text");
+            }
+
+            if (encryptedSessionkey == null || encryptedSessionkey.Length == 0)
+            {
+                throw new ArgumentException("Encrypted session key required!", "encryptedSessionkey");
+            }
+
             this.EncryptedSessionKey = encryptedSessionkey;
             this.CipherText = text;
             this.DecryptCipherText();

@@ -34,6 +34,17 @@
         /// <returns>Encrypted data.</returns>
         public static byte[] Encrypt(string publicKey, string data)
         {
+            // User error checks
+            if (string.IsNullOrWhiteSpace(publicKey))
+            {
+                throw new ArgumentException("Public key required!", "publicKey");
+            }
+
+            if (data == null || data == string.Empty)
+            {
+                throw new ArgumentException("Data required!", "data");
+            }
+
             CspParameters cspParams = new CspParameters { ProviderType = 1 };
             RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(cspParams);
 
@@ -53,6 +64,17 @@
         /// <returns>Decrypted data.</returns>
         public static string Decrypt(string privateKey, byte[] encryptedBytes)
         {
+            // User error checks
+            if (string.IsNullOrWhiteSpace(privateKey))
+            {
+                throw new ArgumentException("Private key required!", "privateKey");
+            }
+
+            if (encryptedBytes == null || encryptedBytes.Length == 0)
+            {
+                throw new ArgumentException("Data required!", "encryptedBytes");
+            }
+
             CspParameters cspParams = new CspParameters { ProviderType = 1 };
             RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(cspParams);
 
