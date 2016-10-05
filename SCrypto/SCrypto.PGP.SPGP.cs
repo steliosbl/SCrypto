@@ -149,7 +149,7 @@ namespace SCrypto.PGP
         {
             this.CreateSessionKey();
             this.EncryptedSessionKey = SCrypto.Asymmetric.RSA.Encrypt(this.RecipientPublicKey, this.SessionKey);
-            this.CipherText = SCrypto.Symmetric.AES256WithHMAC.SimpleEncryptWithPassword(this.ClearText, this.SessionKey, this.EncryptedSessionKey);
+            this.CipherText = SCrypto.Symmetric.AES256WithHMAC.SimpleEncryptWithPassword(this.ClearText, this.SessionKey);
         }
 
         /// <summary>
