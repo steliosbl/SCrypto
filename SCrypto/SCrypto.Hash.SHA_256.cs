@@ -2,7 +2,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SCrypto.Hash.SHA_256.cs">
 //
-// Copyright (C) 2016 Stelio Logothetis
+// Copyright (C) 2016 Stelios Boulitsakis
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the +terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 // </copyright>
 // <summary>
 // SCrypto cryptographic function library for C#.
-// Email: stel.logothetis@gmail.com
+// Email: styboulits@gmail.com
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 #endregion
